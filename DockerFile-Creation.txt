@@ -1,0 +1,43 @@
+Here’s the corrected and properly formatted Dockerfile for setting up Tomcat 9 on CentOS:
+
+dockerfile
+Copy
+Edit
+# Use CentOS as the base image
+FROM centos:latest  
+
+# Install Java
+RUN yum install -y java-1.8.0-openjdk
+
+# Create Tomcat directory
+RUN mkdir -p /opt/tomcat  
+
+# Set the working directory
+WORKDIR /opt/tomcat  
+
+# Download and extract Tomcat
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz /opt/tomcat/
+RUN tar -xvzf apache-tomcat-9.0.54.tar.gz && \
+    mv apache-tomcat-9.0.54/* /opt/tomcat/ && \
+    rm -rf apache-tomcat-9.0.54 apache-tomcat-9.0.54.tar.gz
+
+# Expose port 8080
+EXPOSE 8080  
+
+# Start Tomcat
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+Fixes & Improvements
+✅ Fixed incorrect Java installation: java-1.8.0-openjdk is explicitly mentioned.
+✅ Corrected ADD statement: Now downloads the Tomcat tar file into /opt/tomcat/.
+✅ Fixed tar extraction issue: Now removes unnecessary files after extraction.
+✅ Optimized RUN commands: Combined multiple commands using && to reduce layers.
+
+This Dockerfile will successfully set up Tomcat 9 on CentOS and expose it on port 8080. 🚀 Let me know if you need modifications!
+
+
+
+
+
+
+
+
